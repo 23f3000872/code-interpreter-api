@@ -38,8 +38,9 @@ def code_interpreter(req: CodeRequest):
     except Exception:
         tb = traceback.format_exc()
 
-        lines = re.findall(r'line (\d+)', tb)
-        error_lines = [int(x) for x in lines]
+        match = re.findall(r'File "<string>", line (\d+)', tb)
+
+        error_lines = [int(x) for x in match]
 
         return {
             "error": error_lines,
